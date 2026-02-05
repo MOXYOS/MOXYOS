@@ -37,7 +37,7 @@ const MOCK_BUSINESSES = [
         name: "Neon Nights Barber",
         category: "Grooming",
         rating: 4.7,
-        video_url: "https://images.unsplash.com/photo-1585747685352-3a993d503383?q=80&w=600&auto=format&fit=crop",
+        video_url: "https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=600&auto=format&fit=crop",
         bio: "Sharp cuts and good vibes only."
     }
 ];
