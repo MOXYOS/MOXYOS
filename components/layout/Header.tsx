@@ -45,47 +45,49 @@ export function Header() {
                 <div className="md:hidden">
                     <Sheet>
                         <SheetTrigger asChild>
-                            <Button variant="ghost" size="icon" className="hover:bg-primary/10">
-                                <Menu className="h-6 w-6" />
+                            <Button variant="outline" size="icon" className="border-primary/20 bg-primary/5 hover:bg-primary/10 hover:border-primary/40 rounded-full w-10 h-10 transition-all duration-300">
+                                <Menu className="h-5 w-5 text-primary" />
                                 <span className="sr-only">Menu</span>
                             </Button>
                         </SheetTrigger>
-                        <SheetContent side="right" className="w-[300px] sm:w-[400px] border-l border-white/10 bg-black/95 backdrop-blur-xl">
+                        <SheetContent side="right" className="w-[300px] sm:w-[400px] border-l border-white/20 bg-white/80 backdrop-blur-3xl shadow-2xl p-6">
                             <SheetHeader className="mb-8 text-left">
-                                <SheetTitle className="text-white flex items-center gap-2">
-                                    <span className="bg-primary/20 p-1.5 rounded-lg border border-primary/20">
+                                <SheetTitle className="flex items-center gap-3">
+                                    <span className="bg-primary/10 p-2 rounded-xl border border-primary/10 shadow-sm">
                                         <Image
-                                            src="/icon.svg"
+                                            src="/icons/logo-short.svg"
                                             alt="Logo"
-                                            width={24}
-                                            height={24}
-                                            className="w-6 h-6"
+                                            width={32}
+                                            height={32}
+                                            className="w-8 h-8"
                                         />
                                     </span>
-                                    Menu
+                                    <span className="font-heading font-bold text-2xl text-primary tracking-tight">MOXYOS</span>
                                 </SheetTitle>
                             </SheetHeader>
 
                             <div className="flex flex-col gap-6">
-                                <div className="flex flex-col gap-4">
-                                    <Link href="/explore" className="text-lg font-medium text-white/80 hover:text-white transition-colors flex items-center gap-3 p-2 rounded-lg hover:bg-white/5">
+                                <div className="flex flex-col gap-2">
+                                    <Link href="/explore" className="text-xl font-bold text-gray-800 hover:text-primary transition-colors flex items-center justify-between p-3 rounded-2xl hover:bg-primary/5 group">
                                         Explore
+                                        <span className="text-gray-300 group-hover:text-primary transition-colors">→</span>
                                     </Link>
-                                    <Link href="/about" className="text-lg font-medium text-white/80 hover:text-white transition-colors flex items-center gap-3 p-2 rounded-lg hover:bg-white/5">
+                                    <Link href="/about" className="text-xl font-bold text-gray-800 hover:text-primary transition-colors flex items-center justify-between p-3 rounded-2xl hover:bg-primary/5 group">
                                         About
+                                        <span className="text-gray-300 group-hover:text-primary transition-colors">→</span>
                                     </Link>
                                 </div>
 
-                                <div className="h-px bg-white/10 my-2"></div>
+                                <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent my-2"></div>
 
                                 <div className="flex flex-col gap-3">
                                     <Link href="/login" className="w-full">
-                                        <Button variant="outline" className="w-full justify-start border-white/10 bg-white/5 hover:bg-white/10 text-white font-heading">
+                                        <Button variant="outline" className="w-full justify-center h-12 text-base border-gray-200 bg-white hover:bg-gray-50 text-gray-900 font-heading font-semibold rounded-xl shadow-sm">
                                             Sign In
                                         </Button>
                                     </Link>
                                     <Link href="/signup" className="w-full">
-                                        <Button className="w-full justify-start bg-primary hover:bg-primary/90 text-primary-foreground font-heading font-bold shadow-lg shadow-primary/20">
+                                        <Button className="w-full justify-center h-12 text-base bg-primary hover:bg-primary/90 text-white font-heading font-bold rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all transform hover:-translate-y-0.5">
                                             Get Started
                                         </Button>
                                     </Link>
