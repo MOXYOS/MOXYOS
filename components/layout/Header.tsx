@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Menu } from "lucide-react";
 
 export function Header() {
     return (
@@ -39,26 +41,58 @@ export function Header() {
                 </nav>
 
                 {/* Mobile Menu (Simplified for now) */}
+                {/* Mobile Menu */}
                 <div className="md:hidden">
-                    <Button variant="ghost" size="icon">
-                        <span className="sr-only">Menu</span>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="h-6 w-6"
-                        >
-                            <line x1="4" x2="20" y1="12" y2="12" />
-                            <line x1="4" x2="20" y1="6" y2="6" />
-                            <line x1="4" x2="20" y1="18" y2="18" />
-                        </svg>
-                    </Button>
+                    <Sheet>
+                        <SheetTrigger asChild>
+                            <Button variant="ghost" size="icon" className="hover:bg-primary/10">
+                                <Menu className="h-6 w-6" />
+                                <span className="sr-only">Menu</span>
+                            </Button>
+                        </SheetTrigger>
+                        <SheetContent side="right" className="w-[300px] sm:w-[400px] border-l border-white/10 bg-black/95 backdrop-blur-xl">
+                            <SheetHeader className="mb-8 text-left">
+                                <SheetTitle className="text-white flex items-center gap-2">
+                                    <span className="bg-primary/20 p-1.5 rounded-lg border border-primary/20">
+                                        <Image
+                                            src="/icon.svg"
+                                            alt="Logo"
+                                            width={24}
+                                            height={24}
+                                            className="w-6 h-6"
+                                        />
+                                    </span>
+                                    Menu
+                                </SheetTitle>
+                            </SheetHeader>
+
+                            <div className="flex flex-col gap-6">
+                                <div className="flex flex-col gap-4">
+                                    <Link href="/explore" className="text-lg font-medium text-white/80 hover:text-white transition-colors flex items-center gap-3 p-2 rounded-lg hover:bg-white/5">
+                                        Explore
+                                    </Link>
+                                    <Link href="/about" className="text-lg font-medium text-white/80 hover:text-white transition-colors flex items-center gap-3 p-2 rounded-lg hover:bg-white/5">
+                                        About
+                                    </Link>
+                                </div>
+
+                                <div className="h-px bg-white/10 my-2"></div>
+
+                                <div className="flex flex-col gap-3">
+                                    <Link href="/login" className="w-full">
+                                        <Button variant="outline" className="w-full justify-start border-white/10 bg-white/5 hover:bg-white/10 text-white font-heading">
+                                            Sign In
+                                        </Button>
+                                    </Link>
+                                    <Link href="/signup" className="w-full">
+                                        <Button className="w-full justify-start bg-primary hover:bg-primary/90 text-primary-foreground font-heading font-bold shadow-lg shadow-primary/20">
+                                            Get Started
+                                        </Button>
+                                    </Link>
+                                </div>
+                            </div>
+                        </SheetContent>
+                    </Sheet>
                 </div>
             </div>
         </header>
