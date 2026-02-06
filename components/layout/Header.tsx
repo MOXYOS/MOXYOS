@@ -29,18 +29,17 @@ export function Header() {
                     </Link>
 
                     <div className="flex items-center gap-4">
-                        <Link href="/login">
-                            <Button variant="ghost" className="font-heading font-semibold hover:bg-secondary/80">Sign In</Button>
+                        <Link href="/login" className="flex items-center space-x-2 group">
+                            <Button variant="ghost" className="font-heading font-semibold hover:bg-white/10 hover:text-primary transition-all duration-300">Sign In</Button>
                         </Link>
                         <Link href="/signup">
-                            <Button className="font-heading font-bold rounded-full px-6 shadow-md hover:shadow-lg hover:shadow-primary/20 transition-all transform hover:-translate-y-0.5">
+                            <Button className="font-heading font-bold rounded-full px-6 bg-gradient-to-r from-primary to-secondary text-primary-foreground hover:opacity-90 shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all duration-300 transform hover:-translate-y-0.5">
                                 Get Started
                             </Button>
                         </Link>
                     </div>
                 </nav>
 
-                {/* Mobile Menu (Simplified for now) */}
                 {/* Mobile Menu */}
                 <div className="md:hidden">
                     <Sheet>
@@ -81,12 +80,12 @@ export function Header() {
 
                                 <div className="flex flex-col gap-3">
                                     <Link href="/login" className="w-full">
-                                        <Button variant="outline" className="w-full justify-center h-12 text-base border-gray-200 bg-white hover:bg-gray-50 text-gray-900 font-heading font-semibold rounded-xl shadow-sm">
+                                        <Button variant="ghost" className="w-full justify-center h-12 text-base hover:bg-primary/5 text-gray-900 font-heading font-semibold rounded-xl">
                                             Sign In
                                         </Button>
                                     </Link>
                                     <Link href="/signup" className="w-full">
-                                        <Button className="w-full justify-center h-12 text-base bg-primary hover:bg-primary/90 text-white font-heading font-bold rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all transform hover:-translate-y-0.5">
+                                        <Button className="w-full justify-center h-12 text-base bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white font-heading font-bold rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all transform hover:-translate-y-0.5">
                                             Get Started
                                         </Button>
                                     </Link>
@@ -95,7 +94,7 @@ export function Header() {
                         </SheetContent>
                     </Sheet>
                 </div>
-            </div>
-        </header>
+            </div >
+        </header >
     );
 }

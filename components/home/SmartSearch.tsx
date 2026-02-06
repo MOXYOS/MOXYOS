@@ -81,7 +81,7 @@ export function SmartSearch() {
     };
 
     return (
-        <div ref={searchRef} className="w-full max-w-2xl relative group">
+        <div ref={searchRef} className="w-full max-w-2xl relative group z-50">
             <div className="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-full opacity-20 group-hover:opacity-40 blur transition duration-500"></div>
             <div className="relative flex items-center glass p-2 rounded-full bg-background/50 backdrop-blur-xl border border-white/10">
                 <MapPin className="ml-4 h-6 w-6 text-primary shrink-0" />

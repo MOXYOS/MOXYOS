@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Star, Calendar, MessageCircle, Phone, Globe, Share2, Clock, CheckCircle } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { BackButton } from "@/components/ui/BackButton";
 
 export default async function BusinessProfilePage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -55,8 +56,7 @@ export default async function BusinessProfilePage({ params }: { params: Promise<
                     priority
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
-
-                {/* Back Button / Scrolled Header could go here */}
+                <BackButton />
             </div>
 
             {/* Header Content */}
