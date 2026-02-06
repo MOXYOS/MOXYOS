@@ -22,13 +22,34 @@ export function ProfileForm() {
     const [loading, setLoading] = useState(false)
     const [user, setUser] = useState<any>(null)
 
-    // Fetch user on mount (simple version)
+    // Form State
+    const [name, setName] = useState("")
+    const [category, setCategory] = useState("")
+    const [bio, setBio] = useState("")
+    const [videoUrl, setVideoUrl] = useState("")
+
+    // Fetch user on mount
     useEffect(() => {
-        const getUser = async () => {
+        const fetchData = async () => {
             const { data: { user } } = await supabase.auth.getUser()
             setUser(user)
+
+            if (user) {
+                const { data: business } = await supabase
+                    .from('businesses')
+                    .select('*')
+                    .eq('owner_id', user.id)
+                    .single()
+
+                if (business) {
+                    setName(business.name)
+                    setCategory(business.category)
+                    setBio(business.bio || "")
+                    setVideoUrl(business.video_url || "")
+                }
+            }
         }
-        getUser()
+        fetchData()
     }, [])
 
     async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -41,36 +62,49 @@ export function ProfileForm() {
             return
         }
 
-        const formData = new FormData(event.currentTarget)
         const updates = {
             owner_id: user.id,
-            name: formData.get('businessName'),
-            category: formData.get('category'),
-            bio: formData.get('bio'),
-            video_url: formData.get('videoUrl'),
+            name: name,
+            category: category,
+            bio: bio,
+            video_url: videoUrl,
             updated_at: new Date().toISOString(),
         }
 
-        // Upsert business data (assuming one business per owner for MVP)
-        // We first check if a business exists for this owner
-        const { data: existing } = await supabase.from('businesses').select('id').eq('owner_id', user.id).single()
+        try {
+            // 1. Ensure Profile Exists (Fix for FK Violation "Save Error: {}")
+            const { data: profile } = await supabase
+                .from('profiles')
+                .select('id')
+                .eq('id', user.id)
+                .single()
 
-        let error;
-        if (existing) {
-            const { error: updateError } = await supabase.from('businesses').update(updates).eq('id', existing.id)
-            error = updateError
-        } else {
-            const { error: insertError } = await supabase.from('businesses').insert(updates)
-            error = insertError
-        }
+            if (!profile) {
+                console.log("Profile missing, creating auto-healing record...")
+                const { error: profileError } = await supabase
+                    .from('profiles')
+                    .insert({ id: user.id, email: user.email })
 
-        if (error) {
-            toast.error("Failed to save profile.")
-            console.error(error)
-        } else {
+                if (profileError) {
+                    console.error("Failed to auto-create profile:", profileError)
+                    throw new Error("User profile corrupted. Please contact support.")
+                }
+            }
+
+            // 2. Atomic Upsert of Business
+            const { error: upsertError } = await supabase
+                .from('businesses')
+                .upsert(updates, { onConflict: 'owner_id' })
+
+            if (upsertError) throw upsertError;
+
             toast.success("Profile saved successfully!")
+        } catch (error: any) {
+            console.error("Save Error Details:", JSON.stringify(error, null, 2))
+            toast.error("Failed to save: " + (error.message || "Unknown error"))
+        } finally {
+            setLoading(false)
         }
-        setLoading(false)
     }
 
     return (
@@ -85,12 +119,18 @@ export function ProfileForm() {
                 <form onSubmit={onSubmit} className="space-y-6">
                     <div className="grid gap-2">
                         <Label htmlFor="businessName">Business Name</Label>
-                        <Input id="businessName" name="businessName" placeholder="e.g. Bloom & Brew Cafe" required />
+                        <Input
+                            id="businessName"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            placeholder="e.g. Bloom & Brew Cafe"
+                            required
+                        />
                     </div>
 
                     <div className="grid gap-2">
                         <Label htmlFor="category">Category</Label>
-                        <Select name="category" required>
+                        <Select value={category} onValueChange={setCategory} required>
                             <SelectTrigger>
                                 <SelectValue placeholder="Select a category" />
                             </SelectTrigger>
@@ -99,6 +139,8 @@ export function ProfileForm() {
                                 <SelectItem value="Wellness & Health">Wellness & Health</SelectItem>
                                 <SelectItem value="Home Services">Home Services</SelectItem>
                                 <SelectItem value="Retail">Retail</SelectItem>
+                                <SelectItem value="Professional Services">Professional Services</SelectItem>
+                                <SelectItem value="Local Business">Local Business</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>
@@ -107,7 +149,8 @@ export function ProfileForm() {
                         <Label htmlFor="bio">Bio / Description</Label>
                         <Textarea
                             id="bio"
-                            name="bio"
+                            value={bio}
+                            onChange={(e) => setBio(e.target.value)}
                             placeholder="Tell your story..."
                             className="min-h-[120px]"
                         />
@@ -116,7 +159,12 @@ export function ProfileForm() {
 
                     <div className="grid gap-2">
                         <Label htmlFor="videoUrl">Intro Video URL (Reel)</Label>
-                        <Input id="videoUrl" name="videoUrl" placeholder="https://..." />
+                        <Input
+                            id="videoUrl"
+                            value={videoUrl}
+                            onChange={(e) => setVideoUrl(e.target.value)}
+                            placeholder="https://..."
+                        />
                         <p className="text-xs text-muted-foreground">Link to a vertical video (9:16) introducing your business.</p>
                     </div>
 

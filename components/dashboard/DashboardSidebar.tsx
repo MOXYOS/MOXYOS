@@ -3,30 +3,25 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
-import {
-    LayoutDashboard,
-    Store,
-    Settings,
-    LogOut,
-    UserCircle
-} from "lucide-react"
+import { LayoutDashboard, Users, Settings, LogOut, Clapperboard, UserCircle } from "lucide-react";
 
 const sidebarItems = [
     {
-        title: "Overview",
+        name: "Overview", // Changed title to name
         href: "/dashboard",
         icon: LayoutDashboard,
     },
     {
-        title: "Business Profile",
-        href: "/dashboard/profile",
-        icon: Store,
+        name: "Creator Studio", // Added Creator Studio link
+        href: "/dashboard/create",
+        icon: Clapperboard,
     },
     {
-        title: "Settings",
-        href: "/dashboard/settings",
+        name: "Edit Profile", // Changed "Business Profile" to "Edit Profile" and icon to Settings
+        href: "/dashboard/profile",
         icon: Settings,
     },
+    // The original "Settings" item is removed as "Edit Profile" now uses Settings icon and is likely intended to replace it.
 ]
 
 export function DashboardSidebar() {
@@ -51,7 +46,7 @@ export function DashboardSidebar() {
                             )}
                         >
                             <item.icon className="h-4 w-4" />
-                            {item.title}
+                            {item.name}
                         </Link>
                     ))}
                 </nav>

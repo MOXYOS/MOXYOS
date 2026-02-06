@@ -1,8 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Search } from "lucide-react";
-import { Input } from "@/components/ui/input";
 
 export function Header() {
     return (
@@ -19,17 +17,6 @@ export function Header() {
                         priority
                     />
                 </Link>
-
-                <div className="hidden md:flex items-center flex-1 max-w-md mx-12">
-                    <div className="relative w-full group">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
-                        <Input
-                            type="search"
-                            placeholder="Search businesses..."
-                            className="w-full pl-10 bg-secondary/50 border-transparent focus:bg-background focus:border-primary/20 transition-all duration-300 rounded-full"
-                        />
-                    </div>
-                </div>
 
                 <nav className="hidden md:flex items-center gap-8">
                     <Link href="/explore" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors hover:underline decoration-wavy underline-offset-4">

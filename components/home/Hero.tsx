@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Search, MapPin, ArrowRight } from "lucide-react";
-import { Input } from "@/components/ui/input";
 import { LiveCounter } from "./LiveCounter";
+import { SmartSearch } from "./SmartSearch";
 
 export function Hero() {
     return (
@@ -26,20 +26,7 @@ export function Hero() {
                     Experience the vibe before you visit. Watch authentic stories from cafes, salons, and creators in your community.
                 </p>
 
-                <div className="w-full max-w-2xl relative group">
-                    <div className="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-full opacity-20 group-hover:opacity-40 blur transition duration-500"></div>
-                    <div className="relative flex items-center glass p-2 rounded-full">
-                        <MapPin className="ml-4 h-6 w-6 text-primary shrink-0" />
-                        <Input
-                            type="text"
-                            placeholder="Find coffee, yoga, barbers..."
-                            className="border-0 bg-transparent shadow-none focus-visible:ring-0 text-lg py-6 placeholder:text-muted-foreground/70"
-                        />
-                        <Button size="lg" className="rounded-full px-8 h-12 text-base font-semibold shadow-lg hover:shadow-primary/25 transition-all">
-                            Search
-                        </Button>
-                    </div>
-                </div>
+                <SmartSearch />
 
                 <div className="mt-12 flex items-center gap-6 text-sm text-muted-foreground font-medium">
                     <div className="flex -space-x-3">

@@ -1,6 +1,6 @@
 import { Header } from "@/components/layout/Header";
 import { Hero } from "@/components/home/Hero";
-import { VideoFeed } from "@/components/home/VideoFeed";
+import { TrendingFeed } from "@/components/home/TrendingFeed";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { Footer } from "@/components/layout/Footer";
 
@@ -11,7 +11,7 @@ export default function Home() {
       <main className="flex-1">
         <Hero />
         <HowItWorks />
-        <VideoFeed />
+        <TrendingFeed />
       </main>
       <Footer />
     </div>
