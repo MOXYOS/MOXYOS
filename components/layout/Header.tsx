@@ -62,7 +62,6 @@ export function Header() {
                                             className="w-8 h-8"
                                         />
                                     </span>
-                                    <span className="font-heading font-bold text-2xl text-primary tracking-tight">MOXYOS</span>
                                 </SheetTitle>
                             </SheetHeader>
 
